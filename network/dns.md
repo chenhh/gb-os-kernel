@@ -2,11 +2,15 @@
 
 ## 為什麼我們要使用DNS (domain name system)?
 
-* 可以幫助我們對應IP位址和主機名字(hostname)  ，無須記憶IP位址，只需記憶名字。
+* 可以幫助我們對應IP位址和主機名字(hostname)
+  ，無須記憶IP位址，只需記憶名字。
 * DNS是一個分散式的資料庫，將許多name servers變成階層式架構。
 * DNS是屬於應用層的協定，Host, routers, name server透過溝通來達成解析名稱的目的(address/name translation)。
 
-![DNS是階層式架構](../.gitbook/assets/dns-hier-min.png)
+<figure><img src="../.gitbook/assets/dns-hier-min.png" alt="" width="500">
+<figcaption>DNS是階層式架構</figcaption>
+</figure>
+
 
 為什麼我們不採取集中式DNS？
 
@@ -39,13 +43,19 @@ DNS server分級
 4. cs DNS主機(問：www.microsoft.com主機的IP)往microsoft.com的DNS主機查詢(問：www.microsoft.com主機的IP)。取得名稱解析後的IP，會放在cs主機的快取中。
 5. cs DNS主機回覆給web。
 
-![search www.microsoft.com](../.gitbook/assets/interactive-query-min.png)
+<figure><img src="../.gitbook/assets/interactive-query-min.png" alt="" width="500">
+<figcaption>search www.microsoft.com</figcaption>
+</figure>
 
 ### Recursive Query
 
-為了Load balance還有一種Recursive Query，使用Forward方式進行（以DNS為單位，對象不一定為上游）。執行順序：Interactive Query, Recursive Query。
+為了Load balance還有一種Recursive Query，使用Forward方式進行（以DNS為單位，對象不一定為上游）。執行順序：
+Interactive Query, Recursive Query。
 
-![Cache DNS不會去問root DNS](../.gitbook/assets/recursive-query-min.png)
+<figure><img src="../.gitbook/assets/recursive-query-min.png" alt="" width="500">
+<figcaption>Cache DNS不會去問root DNS</figcaption>
+</figure>
+
 
 ## DNS的種類
 
@@ -54,7 +64,8 @@ Interactive Query和Recursive Query的分別：
 * Interactive Query：尋找到完整的名稱
 * Recursive Query：為了Load balance的目的
 
-DNS的種類區分：
+
+DNS的種類區分：
 
 * Primary DNS：有自己的ZONE
 * Secondary DNS：有從別人那一邊copy的ZONE（只要有就算）
@@ -65,7 +76,7 @@ Interactive Query和Recursive Query的分別：
 
 ZONE：是一個特殊單位。一個ZONE一定要有一個DNS來管，但是一個DNS可以管理許多的ZONE，而每一個ZONE都有一個ZONE File。
 
-### ZONE File&#xD;
+### ZONE File
 
 * SOA （Start-of-Authority）
 * Version Number（判斷新舊，但clock要相同）
@@ -104,9 +115,9 @@ RR格式為：(name, value, type, ttl)
 
 DNS的query和reply訊息格式是一樣的。
 
-![](../.gitbook/assets/dns-header-min.png)
-
-
+<figure><img src="../.gitbook/assets/dns-header-min.png" alt="" width="500">
+<figcaption>DNS表頭</figcaption>
+</figure>
 
 * Identification：一個16 bit的代號，query和reply都使用同一個代號。
 *
