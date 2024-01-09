@@ -9,23 +9,31 @@
 
 * 固定分區大小(Fixed-partition)：除非Process需求的大小剛好等於每分區大小的倍數，不然通常都會多給。
 * 變動區塊大小(Variable-partition): 滿足Process的需求，要多少給多少。
-* 洞(hole): 一塊連續記憶體。  多個大小不同的洞，會分散在記憶體之中。
+* 洞(hole): 一塊連續記憶體。
+  多個大小不同的洞，會分散在記憶體之中。
 
 行程要放入記憶體中時，會被分配在大小足夠容納的洞中。作業系統維護已分配的區域，還有尚未被分配的區域（洞）。
 
-![配置足夠大小的記憶體空間給行程](../../.gitbook/assets/multiple-partition-allocation-min.jpg)
+<figure><img src="../../.gitbook/assets/multiple-partition-allocation-min.jpg" alt="" width="500">
+<figcaption>配置足夠大小的記憶體空間給行程</figcaption>
+</figure>
+
 
 ## 動態儲存分區問題(Dynamic Storage-Allocation Problem)
 
 Q: 如何滿足大小為n的行程進入記憶體？
 
 * First-fit：分配第一個大小滿足條件(>=n)的洞給行程。
-* Best-fit：分配第一個最小剛好滿足的洞給行程。  必須搜尋整個洞的列表，除非列表已經依照大小排列。
+* Best-fit：分配第一個最小剛好滿足的洞給行程。
+  必須搜尋整個洞的列表，除非列表已經依照大小排列。
 * Worst-fit：分配最大的洞給行程。也必須搜尋整個洞的列表。
 
 在速度以及空間利用率方面，first-fit跟best-fit好過於worst-fit。
 
-![藍色為已分配的記憶體空間，白色為未分配的記憶體空間。](../../.gitbook/assets/best-first-worst-fit-min.png)
+<figure><img src="../../.gitbook/assets/best-first-worst-fit-min.png" alt="" width="500">
+<figcaption>藍色為已分配的記憶體空間，白色為未分配的記憶體空間。</figcaption>
+</figure>
+
 
 碎裂(Fragmentation)
 
@@ -37,7 +45,9 @@ Q: 如何滿足大小為n的行程進入記憶體？
 | 發生時機 | 當配置的記憶體空間大於行程所需空間時發生                                                            | 當行程結束移出主記憶體時發生                                     |
 | 解法   | 採用best-fit配置策略                                                                  | 聚集閒置的記憶體空間(compaction)，分頁(paging)與分段(segmentation) |
 
-![內部與外部碎裂示意圖](../../.gitbook/assets/memory\_fragementation-min.png)
+<figure><img src="../../.gitbook/assets/memory_fragementation-min.png" alt="" width="500">
+<figcaption>內部與外部碎裂示意圖</figcaption>
+</figure>
 
 
 
