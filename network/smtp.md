@@ -2,7 +2,8 @@
 
 每一個使用者都會有一個信箱(mail box)來存放尚未讀取的信件。尚未傳送出去的信件會暫時存在message queue。
 
-SMTP (Simple Mail Transfer Protocol)扮演了兩種角色：
+SMTP (Simple Mail Transfer Protocol
+)扮演了兩種角色：
 
 * Client：當作傳送信件的伺服器
 * Server：當作接收信件的伺服器
@@ -23,19 +24,22 @@ SMTP (Simple Mail Transfer Protocol)扮演了兩種角色：
 
 RFC編號：822，text message exchange標準。
 
-![](../.gitbook/assets/smtp\_message-min.png)
+<figure><img src="../.gitbook/assets/smtp_message-min.png" alt="" width="500">
+<figcaption>SMTP</figcaption>
+</figure>
 
 
-
-
-MIME (multimedia mail extension)
+MIME (multimedia mail extension)
 --------------------------------
 
 RFC編號：2045, 2046。
 
 MIME為了非ASCII資料的擴充。在表頭檔定義了MIME的格式。
 
-![MIME定義在表頭](../.gitbook/assets/mime\_extension-min.png)
+<figure><img src="../.gitbook/assets/mime_extension-min.png" alt="" width="500">
+<figcaption>MIME定義在表頭</figcaption>
+</figure>
+
 
 MIME所增加的標頭檔(headers)
 
