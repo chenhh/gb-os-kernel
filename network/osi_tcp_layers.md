@@ -178,7 +178,7 @@ RFC793講到了為什麼三次握手是必須的，TCP 需要 seq 序列號來�
 
 若建立連接只需兩次握手，客戶端並沒有太大的變化，仍然需要獲得服務端的應答後才進入ESTABLISHED狀態，而服務端在收到連接請求後就進入ESTABLISHED狀態。此時如果網絡擁塞，客戶端發送的連接請求遲遲到不了服務端，客戶端便超時重發請求，如果服務端正確接收並確認應答，雙方便開始通信，通信結束後釋放連接。此時，如果那個失效的連接請求抵達了服務端，由於只有兩次握手，服務端收到請求就會進入ESTABLISHED狀態，等待發送數據或主動發送數據。但此時的客戶端早已進入CLOSED狀態，服務端將會一直等待下去，這樣浪費服務端連接資源。
 
-<figure><img src="../.gitbook/assets/tcp\_2-way-handshake-min.jpg" alt="" width="500">
+<figure><img src="../.gitbook/assets/tcp_2-way-handshake-min.jpg" alt="" width="500">
 <figcaption>二次握手在多次發送同步訊號時浪費資源</figcaption>
 </figure>
 
@@ -194,7 +194,7 @@ TCP 協議是不限制一個特定的連接（兩端 socket 一樣）被重復�
 
 接收方接收到第一個 SYN 時，沒有辦法知道這個 SYN 是是否延遲了很久了，除非他有辦法記住在這條連接中，最後接收到的那個sequence numbers（然而這不總是可行的）。這句話的意思是：一個 seq 過來了，跟現在記住的 seq 不一樣，我怎麼知道他是上條延遲的，還是上上條延遲的呢？所以，接收方一定需要跟發送方確認 SYN。
 
-<figure><img src="../.gitbook/assets/tcp\_multiple\_syn-min.jpg" alt="" width="500">
+<figure><img src="../.gitbook/assets/tcp_multiple_syn-min.jpg" alt="" width="500">
 <figcaption>三次握手可防止歷史連接</figcaption>
 </figure>
 
