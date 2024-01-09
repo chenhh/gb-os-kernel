@@ -9,25 +9,33 @@
 * 無連線：無連線的含義是限制每次連線只處理一個請求。伺服器處理完客戶的請求，並收到客戶的應答後，即斷開連線。採用這種方式可以節省傳輸時間。
 * 無狀態：HTTP協議是無狀態協議。無狀態是指協議對於事務處理沒有記憶能力。缺少狀態意味著如果後續處理需要前面的資訊，則它必須重傳，這樣可能導致每次連線傳送的資料量增大。另一方面，在伺服器不需要先前資訊時它的應答就較快。
 
-![http狀態碼](../.gitbook/assets/http-status-code-min.png)
+<figure><img src="../.gitbook/assets/http-status-code-min.png" alt="" width="500">
+<figcaption>http狀態碼</figcaption>
+</figure>
 
-![http與http2多工比較](../.gitbook/assets/http\_http2-min.jpg)
+<figure><img src="../.gitbook/assets/http_http2-min.jpg" alt="" width="500">
+<figcaption>http與http2多工比較</figcaption>
+</figure>
+
 
 ## HTTP Request and Response
 
 訊息是使用ASCII text所寫，易於閱讀。
 
+<figure><img src="../.gitbook/assets/http_request-min.png" alt="" width="500">
+<figcaption>HTTP　Request</figcaption>
+</figure>
 
-
-![HTTP　Request](../.gitbook/assets/http\_request-min.png)
-
-![HTTP Response](../.gitbook/assets/http\_response-min.png)
-
+<figure><img src="../.gitbook/assets/http_response-min.png" alt="" width="500">
+<figcaption>HTTP Response</figcaption>
+</figure>
 
 
 ## HTTP/3：QUIC傳輸協議
 
-![HTTP2與HTTP3傳輸協議](../.gitbook/assets/http2-3\_proc-min.png)
+<figure><img src="../.gitbook/assets/http2-3_proc-min.png" alt="" width="500">
+<figcaption>HTTP2與HTTP3傳輸協議</figcaption>
+</figure>
 
 HTTP/2傳輸協議(要由 TCP + TLS 1.2 + HTTP 所組成。隨著時間的演進，越來越多的網路流量都往手機端移動，手機的無線網路環境會遇到的問題像是(1)封包丟失機率較高、(2)較長 Round Trip Time (RTT) 和 (3) Connection Migration 問題等等，都讓主要是為了有線網路設計的 HTTP/TCP 協議遇到貧頸。
 
@@ -49,7 +57,10 @@ IETF 的 QUIC Work Group 在2018年把 QUIC 重新命名為 HTTP/3，把 QUIC �
 
 QUIC因此提出一個新的連線建立機制，初始的連線交握和金鑰的交換，只需要花1個RTT的時間。藉由將初始連線交握的金鑰快取在客戶端，從第二次連線開始，之後的每一次連線都可以直接開始傳輸數據，如下圖中，達到零交握延遲 (0-RTT Handshake Latency) 的優勢，直接在一個經過認證且加密的通道內傳輸數據。
 
-![QUIC連線握手](../.gitbook/assets/quic\_handshake-min.png)
+<figure><img src="../.gitbook/assets/quic_handshake-min.png" alt="" width="500">
+<figcaption>QUIC連線握手</figcaption>
+</figure>
+
 
 QUIC 連線的建立主要分為兩個步驟：(1)初始交握和(2)最終與重複交握，下面分別對這兩個步驟做詳細的介紹。
 
