@@ -8,7 +8,10 @@ HTTP有1.1和1.0之說，差別在於keep-alive，即把多個HTTP請求合並�
 
 HTTP協議採用“請求-應答”模式，當使用普通模式，即非KeepAlive模式時，每個請求/應答客戶和服務器都要新建一個連接，完成之後立即斷開連接，因為HTTP協議為無連接的協議；當使用Keep-Alive模式（HTTP 1.1，又稱持久連接、連接重用）時，Keep-Alive功能使客戶端到服務器端的連接持續有效，當出現對服務器的後繼請求時，Keep-Alive功能避免了建立或者重新建立連接。目前大部分瀏覽器都是用HTTP 1.1協議，也就是說預設都會發起Keep-Alive的連接請求了，所以是否能完成一個完整的Keep- Alive連接就看服務器設置情況。
 
-![http1.0&#x8207;keep-alive](../.gitbook/assets/http_persistent_connection-min.png)
+<figure><img src="./.gitbook/assets/http_persistent_connection-min.png" alt="" width="500">
+<figcaption>http1.0與keep-alive</figcaption>
+</figure>
+
 
 ## websocket
 
@@ -58,13 +61,19 @@ Sec-WebSocket-Protocol: chat
 
 然後，Sec-WebSocket-Accept 這個則是經過服務器確認，並且加密過後的 Sec-WebSocket-Key。服務器：好啦好啦，知道啦，給你看我的ID CARD來證明行了吧。。後面的，Sec-WebSocket-Protocol 則是表示最終使用的協議。至此，HTTP已經完成它所有工作了，接下來就是完全按照Websocket協議進行了。
 
-![websocket&#x6280;&#x8853;](../.gitbook/assets/web_websocket-min.png)
+<figure><img src="../.gitbook/assets/web_websocket-min.png" alt="" width="500">
+<figcaption>websocket技術</figcaption>
+</figure>
 
-## 輪詢 \(Polling\)
+
+## 輪詢 (Polling)
 
 這是早期Web的一種解決方式，透過Client端在一定的時間間隔下定期去發送request給Server，透過這樣頻繁發送請求來保持資料的同步，但也因此會耗費Client大量的傳輸消耗。
 
-![polling&#x6280;&#x8853;](../.gitbook/assets/web_polling-min.png)
+
+<figure><img src="../.gitbook/assets/web_polling-min.png" alt="" width="500">
+<figcaption>Polling技術</figcaption>
+</figure>
 
 
 
