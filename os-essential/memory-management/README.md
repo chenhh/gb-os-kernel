@@ -105,15 +105,22 @@ CPU 中存在於段暂存器是因為其記憶體是分段訪問的。CPU 內部
 
 CPU必須確認每一個來自使用者空間的記憶體操作，都坐落在基底以及限制暫存器的值之間。
 
-![行程在邏輯記憶體空間由基底和限制暫存器界定存取範圍](../../.gitbook/assets/base-limit.jpg)
+<figure> <img src="../../.gitbook/assets/base-limit.jpg" witdh="500"><figcaption>行程在邏輯記憶體空間由基底和限制暫存器界定存取範圍</figcaption></figure>
+!)
 
-![基底與限制暫存器用於紀錄行程所佔記憶體空間容量](../../.gitbook/assets/base-limit-register-min.png)
+<figure><img src="../../.gitbook/assets/base-limit-register-min.png" alt="" withd="500">
+<figcaption>基底與限制暫存器用於紀錄行程所佔記憶體空間容量</figcaption>
+</figure>
+
 
 ## 地址的繫結(address binding)
 
 繫結決定了程式起始地址，即程式要在記憶體的哪個地方開始執行。
 
-![程式編譯流程與地址繫結](../../.gitbook/assets/address\_binding-min.png)
+<figure><img src="../../.gitbook/assets/address_binding-min.png" alt="" width="500">
+<figcaption>程式編譯流程與地址繫結</figcaption>
+</figure>
+
 
 繫結有 3 個時期如下：
 
@@ -127,4 +134,7 @@ CPU必須確認每一個來自使用者空間的記憶體操作，都坐落在�
 
 MMU (Memory-Management Unit) 是一種可將邏輯地址轉換成實體地址的硬體設備。基底暫存器在這就被稱為重定位暫存器(relocation register)。
 
-![MMU示意圖](../../.gitbook/assets/os\_mmu-min.png)
+<figure><img src="../../.gitbook/assets/os_mmu-min.png" alt="" width="500">
+<figcaption>MMU示意圖</figcaption>
+</figure>
+
