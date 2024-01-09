@@ -62,7 +62,7 @@
   。
 * 範例: 6-station LAN, 1,3,4有封包, 頻帶2,5,6idle 。
 
-<figure><img src="../.gitbook/assets/fdma.png>" alt="" width="500">
+<figure><img src="../.gitbook/assets/fdma.png" alt="" width="500">
 <figcaption>FDMA</figcaption>
 </figure>
 
@@ -110,7 +110,7 @@
 ，每個slot以p的機率傳送封包
 ，成功傳送的機率S 約為18% (最佳情況)。
 
-<figure><img src="../.gitbook/assets/pure\_aloha-min.png" alt="" width="500">
+<figure><img src="../.gitbook/assets/pure_aloha-min.png" alt="" width="500">
 <figcaption>pure ALOHA</figcaption>
 </figure>
 
@@ -297,7 +297,7 @@ Ethernet標準訊框，允許點對點連線和共享廣播頻道
     ，DLC-level ACKing
     。
 
-<figure><img src="../.gitbook/assets/token\_pass-min.png" alt="" width="500">
+<figure><img src="../.gitbook/assets/token_pass-min.png" alt="" width="500">
 <figcaption>Token pass</figcaption>
 </figure>
 
@@ -356,7 +356,7 @@ Ethernet標準訊框，允許點對點連線和共享廣播頻道
   。
 * 橋接器會維護filtering tables, 依照filtering, learning, spanning tree演算法運作。
 
-<figure><img src="../.gitbook/assets/bridge\_and\_router-min.png" alt="" width="500">
+<figure><img src="../.gitbook/assets/bridge_and_router-min.png" alt="" width="500">
 <figcaption>橋接器和路由器</figcaption>
 </figure>
 
