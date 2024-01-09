@@ -12,9 +12,12 @@ BIOS平時儲存於ROM中\(EPROM或FLASH\)，除了特殊工具和方法之外�
 
 BOOT是載入執行的一個預啟動的操作環境程式，嚴格來算是軟體，通常用組合語言編寫。是一組固化到計算機內主機板上一個ROM晶片上的程式。它儲存著計算機最重要的基本輸入輸出的程式、系統設定資訊、開機後自檢程式和系統自啟動程式。其主要功能是為計算機提供最底層的、最直接的硬體設定和控制。
 
-![Award BIOS&#x8A2D;&#x5B9A;&#x756B;&#x9762;](../.gitbook/assets/bios_setting.png)
+<figure><img src="../.gitbook/assets/bios_setting.png" alt="" width="500">
+<figcaption>AWARD BIOS設定畫面</figcaption>
+</figure>
 
-一般稱BIOS是指主機板的BIOS，而其它的週邊也有自已的BIOS ROM，像是顯示卡、高階網路卡等，因為較複雜的外接週邊硬體設計差異很大，各自有其獨特初始動作，所以廠商會另外加上BIOS ROM。
+一般稱BIOS是指主機板的BIOS，而其它的週邊也有自已的BIOS ROM，像是顯示卡、高階網路卡等，因為較複雜的外接週邊硬體設計差異很大，各自有其獨特初始動作，所以廠商會另外加上BIOS ROM。
+
 
 然而，不適當的執行或是終止 BIOS 更新可能導致電腦或是裝置的不堪使用。為了避免 BIOS 損壞，有些新的主機板有備份的 BIOS \("雙BIOS"主機板\)，主要是因為CIH病毒可破壞BIOS。
 
@@ -67,7 +70,9 @@ BIOS本身是組合語言程式碼，是在16位元真實模式下呼叫INT 13H�
 5. 再次被啟動的程式碼（二階段程式碼）（即啟動引導）會查閱支援和配置檔案。
 6. 根據配置檔案中的資訊，啟動載入程式會將核心和initramfs檔案載入系統的RAM中，然後開始啟動核心。
 
-![&#x901A;&#x96FB;&#x81EA;&#x6AA2;\(POST\)](../.gitbook/assets/post_test.png)
+<figure><img src="../.gitbook/assets/post_test.png" alt="" width="500">
+<figcaption>通電自檢(POST)</figcaption>
+</figure>
 
 硬體初始化工作中，主要說明兩點，首先經過POST檢測後，電腦終於出現了開機啟動畫面，這就是已經檢測到了顯示卡並完成了初始化。但是請注意，由於BIOS是在16位真實模式執行，因此該畫面是以VGA解析度（640\*480，縱橫比4:3）顯示的，因為真實模式最高支援的就是VGA。
 

@@ -12,8 +12,10 @@
 
 開機後有四次關鍵跳躍\(jmp\)指令，都是當時 Intel 和 BIOS 等製作廠商的固定下來的流程，記住就好。開機的時候CPU處於真實模式，可定址範圍為1M：
 
-1. 按下開機鍵，CPU 將 PC 暫存器的值強制初始化為 0xFFFF0，這個位置是 BIOS 程式的入口位址（第一次跳躍）   。
-2. 該入口位址處是一個跳轉指令，跳轉到 0xFE05B 位置，開始執行（第二次跳躍）   。
+1. 按下開機鍵，CPU 將 PC 暫存器的值強制初始化為 0xFFFF0，這個位置是 BIOS 程式的入口位址（第一次跳躍）
+   。
+2. 該入口位址處是一個跳轉指令，跳轉到 0xFE05B 位置，開始執行（第二次跳躍）
+   。
 3. 執行了一些硬體檢測工作後，最後一步將啟動區內容加載（復制）到記憶體 0x7C00，並跳轉到這裡（第三次跳躍）。
 4. 啟動區代碼主要是加載作業系統內核，並跳轉到加載處（第四次跳躍）。
 
@@ -32,7 +34,9 @@ CPU 位址匯流排的寬度決定了可訪問的記憶體空間的大小。
 
 真實模式時，記憶體的配置如下圖：
 
-![&#x771F;&#x5BE6;&#x6A21;&#x5F0F;&#x8A18;&#x61B6;&#x9AD4;&#x914D;&#x7F6E;](../.gitbook/assets/real_mode_memory_allocation-min.png)
+<figure><img src="../.gitbook/assets/real_mode_memory_allocation-min.png" alt="" width="500">
+<figcaption>真實模式記憶體配置</figcaption>
+</figure>
 
 記憶體被各種外部設備對映在了記憶體中。BIOS不但其空間被對映到了記憶體 0xC0000 - 0xFFFFF 位置，其裡面的程式還佔用了開頭的一些區域，比如把中斷向量表寫在了記憶體開始的位置。
 
@@ -40,7 +44,8 @@ CPU 位址匯流排的寬度決定了可訪問的記憶體空間的大小。
 
 目前已經知道 BIOS 裡的資訊被對映到了記憶體 0xC0000 - 0xFFFFF 位置，其中最為關鍵的系統 BIOS 被對映到了 0xF0000 - 0xFFFFF \(16 Bytes\) 位置。
 
-按下開機鍵，CPU 將 PC 暫存器的值強制初始化為 0xFFFF0，這個位址。更詳細的說，CPU 將段基址暫存器 CS 初始化為 0xF000，將偏移位址暫存器 IP 初始化為 0xFFF0，根據真實模式下的最終位址計算規則，將段基址左移 4 位，加上偏移位址，得到最終的實體位址也就是抽象出來的 PC 暫存器位址為 0xFFFF0。
+按下開機鍵，CPU 將 PC 暫存器的值強制初始化為 0xFFFF0，這個位址
+。更詳細的說，CPU 將段基址暫存器 CS 初始化為 0xF000，將偏移位址暫存器 IP 初始化為 0xFFF0，根據真實模式下的最終位址計算規則，將段基址左移 4 位，加上偏移位址，得到最終的實體位址也就是抽象出來的 PC 暫存器位址為 0xFFFF0。
 
 0xF0000 - 0xFFFFF 只有16位元組，其中儲存的機器指令轉成組合語言是：
 
@@ -60,7 +65,9 @@ BIOS 啟動順序的經歷，通常有 USB硬碟啟動、硬碟啟動、軟硬�
 
  這 0 盤 0 道 1 扇區的內容一共有 512 個位元組，如果末尾的兩個位元組分別是 0x55 和 0xAA，那麼 BIOS 就會認為它是個啟動區，即所謂的MBR\(master boot record\)。
 
-![MBR&#x7D50;&#x69CB;](../.gitbook/assets/mbr-min.png)
+<figure><img src="../.gitbook/assets/mbr-min.png" alt="" width="500">
+<figcaption>MBR結構</figcaption>
+</figure>
 
 BIOS 找到了這個啟動區之後，把這 512 個位元組的內容，全部複製到記憶體的 0x7C00位址 。啟動區的內容就是我們自己寫的程式碼了。
 
@@ -84,9 +91,12 @@ BIOS 找到了這個啟動區之後，把這 512 個位元組的內容，全部�
 
 編輯檔案[mbr.raw](https://github.com/chenhh/cpp-system-dev/blob/master/operating-system/mbr.raw)如下：
 
-![mbr.raw&#x7684;&#x5167;&#x5BB9;](../.gitbook/assets/mbr_raw-min.png)
+<figure><img src="gitbook/assets/mbr_raw-min.png" alt="" width="500">
+<figcaption>mbr.raw的內容</figcaption>
+</figure>
 
-```erlang
+
+```bash
 qemu-system-i386 mbr.raw
 或
 qemu-system-x86_64 mbr.raw
@@ -94,7 +104,10 @@ qemu-system-x86_64 mbr.raw
 
 可得結果只有秀出hello。
 
-![QEMU&#x57F7;&#x884C;mbr.raw&#x7684;&#x7D50;&#x679C;](../.gitbook/assets/qemu_mbr_hello-min.png)
+
+<figure><img src="../.gitbook/assets/qemu_mbr_hello-min.png" alt="" width="500">
+<figcaption>QEMU執行mbr.raw的結果</figcaption>
+</figure>
 
 使用`ndisasm -o0x7c00 mbr.raw` 反組譯\(預設為x86 16-bit\)，且重定位至0x7c00。
 
@@ -178,9 +191,12 @@ Intel 8086 是1978 年所設計的 16 位微處理器晶片，為 x86 架構的�
 
 ### 真實模式與保護模式的區別
 
-* 真實模式 16 位元，保護模式 32 位  元。
-* 真實模式下的位址是段暫存器位址偏移4位+偏移位址得到實體位址。保護模式下段暫存器存入了段選擇子，在段描述符表中尋找段基址，再加上偏移位址得到實體位址（開啟分頁下為邏輯位址）  。
-* 就是真實模式定址空間是 1M，保護模式是 4G  。
+* 真實模式 16 位元，保護模式 32 位
+  元。
+* 真實模式下的位址是段暫存器位址偏移4位+偏移位址得到實體位址。保護模式下段暫存器存入了段選擇子，在段描述符表中尋找段基址，再加上偏移位址得到實體位址（開啟分頁下為邏輯位址）
+  。
+* 就是真實模式定址空間是 1M，保護模式是 4G
+  。
 * 段描述符表記錄了段的許可權，改變了真實模式下可以隨意存取所有記憶體的問題（這也是保護這兩個字的體現）。
 
 ### 進入保護模式
@@ -191,7 +207,8 @@ Intel 8086 是1978 年所設計的 16 位微處理器晶片，為 x86 架構的�
 * 載入GDT \(Global Descriptor Table\)
 * 將 CR0 的 PE位置設為 1
 
-此時已經進入保護模式了，段基址暫存器的意義已經改變。
+此時已經進入保護模式了，段基址暫存器的意義已經改變
+。
 
 {% code title="" %}
 ```c
@@ -270,9 +287,15 @@ jmp $
 
 那自然就有兩個問題，一個是段描述符表的結構，決定了我們往記憶體中寫的資料結構是什麼。另一個就是去哪找段描述符表，這個就需要告訴處理器為我們提前預留好的暫存器，也就是 lgdt 指令。
 
-![&#x6BB5;&#x63CF;&#x8FF0;&#x5B50;&#x7D50;&#x69CB;](../.gitbook/assets/segment_descriptor.gif)
+<figure><img src="../.gitbook/assets/segment_descriptor.gif" alt="" width="500">
+<figcaption>段描述子結構</figcaption>
+</figure>
 
-![&#x6BB5;&#x9078;&#x64C7;&#x5B50;&#x7D50;&#x69CB;](../.gitbook/assets/segment_selector.gif)
+
+<figure><img src="../.gitbook/assets/segment_selector.gif" alt="" width="500">
+<figcaption>段選擇子結構</figcaption>
+</figure>
+
 
 ### 段描述表\(segment description table\)
 

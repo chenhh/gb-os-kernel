@@ -2,7 +2,9 @@
 
 在程式執行時，行程有時會需要暫時離開記憶體，之後會再搬回來執行，此過程稱為置換\(swapping\)，搬入搬出記憶體的動作我們稱為swap out跟swap in。而在這裡的硬碟我們會將它稱作backing store，兩者是互通的。
 
-![&#x8A18;&#x61B6;&#x9AD4;&#x7F6E;&#x63DB;](../../.gitbook/assets/swap-in-out-min.jpg)
+<figure><img src="../../.gitbook/assets/swap-in-out-min.jpg" alt="" width="500">
+<figcaption>記憶體置換</figcaption>
+</figure>
 
 置換在實作時，必需考量搬回記憶體時是否還能在同樣的位置，這就要看程式繫結\(binding method\)的作法。但其實置換是一件很耗費計算資源的工作，所以一定是到記憶體無法負荷時才會使用。在早期置換是很重要的記憶體管理議題，但現在多用虛擬記憶體來處理。
 
