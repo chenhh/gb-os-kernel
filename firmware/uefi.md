@@ -8,7 +8,7 @@ BIOS產業是科技和人力密集型企業。BIOS對熟練工程師需求相當
 
 我們的計算機系統可以粗粗看作由三部分組成，分別是硬體、BIOS韌體和作業系統。一般的作業系統可以在所有的電腦上運行，這是因為BIOS抽象了硬體的不同，向上提供了統一的介面，這個介面就是UEFI標準。如此Windows和Linux可以用UEFI標準定義的介面統一個別硬體的差異，而不需要為每個硬體改變做出修改，開發出來的系統，賣一套和賣一億套成本差異很小，擴展性極大，也就是Scale Out能力很大。
 
-<figure><img src="../.gitbook/assets/uefi\_abstraction-min (1).png" alt="" width="500">
+<figure><img src="../.gitbook/assets/uefi_abstraction-min (1).png" alt="" width="500">
 <figcaption>簡單的電腦組成結構</figcaption>
 </figure>
 
@@ -18,7 +18,7 @@ BIOS和硬體的操作介面是硬體暫存器，BIOS工程師需要根據各種
 
 * UEFI：簡單來說就是改良版的BIOS，但UEFI不能稱為BIOS，在新的主機板看到圖形化介面，以及可以用滑鼠鍵盤操作的”BIOS”畫面，就是UEFI介面。很多人混淆的一點，沒有’UEFI BIOS’。不過為了方便說明與避免混淆，仍會習慣使用”BIOS”代稱，但請不要認為UEFI是某種BIOS。
 
-<figure><img src="../.gitbook/assets/uefi\_arch-min.png" alt="" width="500">
+<figure><img src="../.gitbook/assets/uefi_arch-min.png" alt="" width="500">
 <figcaption>UEFI架構</figcaption>
 </figure>
 
@@ -105,7 +105,7 @@ MBR結構可分為以下區塊：（1）0-445位元組，載入開機管理程�
 
 分割資訊可分為主要(Primary)分割槽、延伸(Extended)分割槽、邏輯(Logic)分割槽。主要分割槽+延伸分割槽最多只能有 4 個，而邏輯分割槽是在延伸槽裡面繼續分割，不限數量。
 
-<figure><img src="../.gitbook/assets/primary\_partition-min.png" alt="" width="500">
+<figure><img src="../.gitbook/assets/primary_partition-min.png" alt="" width="500">
 <figcaption>主分割槽與邏輯分割槽</figcaption>
 </figure>
 
