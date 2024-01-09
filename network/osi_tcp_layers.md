@@ -22,9 +22,14 @@ OSI模型是一個概念模型，它建立了一個框架，說明資訊該如�
 
 相較於 OSI模型的七層架構，TCP/IP模型只有四層。雖然說是簡化，但實際上整體的架構還是不脫 OSI 模型的內容。
 
-![OSI 7層與TCP/IP 4層對照圖](../.gitbook/assets/osi\_tcp\_mapping.png)
+<figure><img src="../.gitbook/assets/osi_tcp_mapping.png" alt="" width="500">
+<figcaptionOSI 7層與TCP/IP 4層對照圖></figcaption>
+</figure>
 
-![TCP/IP用到的位址與各層的關係。port: 16 bits, IP address: 32 bits (v4), ARP,](../.gitbook/assets/tcp\_layers\_address-min.png)
+<figure><img src="../.gitbook/assets/tcp_layers_address-min.png" alt="" width="500">
+<figcaption>TCP/IP用到的位址與各層的關係。port: 16 bits, IP address: 32 bits (v4), ARP</figcaption>
+</figure>
+
 
 ## OSI分層
 
@@ -114,7 +119,8 @@ TCP 和 UDP 都是透過同樣的方式傳輸資料，並透過 IP 找到目標�
 * 提供流量控制(flow control)
 * 提供壅塞控制(congestion control)
 
-TCP 用於需要「可靠通訊」的場景，即資料在傳輸的過程中不會遺漏，而且有正確的順序性。大部分情況下我們都需要 TCP 來保證通訊的可靠性。
+
+TCP 用於需要「可靠通訊」的場景，即資料在傳輸的過程中不會遺漏，而且有正確的順序性。大部分情況下我們都需要 TCP 來保證通訊的可靠性。
 
 ### UDP
 
@@ -128,13 +134,19 @@ TCP 和 UDP 都是透過同樣的方式傳輸資料，並透過 IP 找到目標�
 
 ## TCP狀態轉移圖
 
-![TCP狀態轉移圖](../.gitbook/assets/tcp\_state-min.png)
+<figure><img src="../.gitbook/assets/tcp_state-min.png" alt="" width="500">
+<figcaption>TCP狀態轉移圖</figcaption>
+</figure>
 
-![TCP連線狀態時序圖](../.gitbook/assets/tcp\_conn\_state-min.jpg)
+<figure><img src="../.gitbook/assets/tcp_conn_state-min.jpg" alt="" width="500">
+<figcaption>TCP連線狀態時序圖</figcaption>
+</figure>
+
 
 TCP 實現可靠的傳輸協議，是靠 SEQ 確認完成的。因此建立一個可靠的單向通道需要至少一次 SYN 和 ACK 完成 SEQ 的確定，並且在今後的通訊中依靠 ACK SEQ(+1) 來確保發送成功。
 
-起初，服務器和客戶端都為CLOSED狀態。在通信開始前，雙方都得創建各自的傳輸控制塊（TCB）。服務器創建完TCB後遍進入LISTEN狀態，此時准備接收客戶端發來的連接請求。
+起初，服務器和客戶端都為CLOSED狀態。在通信開始前，雙方都得創建各自的傳輸控制塊（TCB）。
+服務器創建完TCB後遍進入LISTEN狀態，此時准備接收客戶端發來的連接請求。
 
 ## TCP建立連線的三次握手( 3-Way handshake)&#x20;
 
@@ -142,17 +154,23 @@ TCP 為了在通訊連線前，確認對方可以準備接收訊號，以及在�
 
 ### 連線前的 3-way handshake&#xD;
 
-* CLIENT: 傳送通訊連線請求  ，發送了 SEQ 100，標志位是 SYN；
+* CLIENT: 傳送通訊連線請求
+  ，發送了 SEQ 100，標志位是 SYN；
 * SERVER: 確認允許連線，且發回了 ACK 101 與 SEQ 200，標志位是 SYN 與 ACK（兩個過程合並了）。注意，ACK 是101意味著，伺服端希望接收到 101序列號開始的數據段。
 * CLIENT: 確認連線，返回了空的數據，SEQ 101， ACK 201，標志位為 ACK。至此，雙方的開始 SEQ （也就是 ISN）號100與200都被確認接收到了。
 * 開始正式發送資料包，注意的是 ACK 依舊是第四行的201，因為沒有需要 ACK 的 SYN 了。
 
-![TCP建立連線前的三次握手](../.gitbook/assets/tcp-3-way-handshake-min.png)
+<figure><img src="../.gitbook/assets/tcp-3-way-handshake-min.png" alt="" width="500">
+<figcaption>TCP建立連線前的三次握手</figcaption>
+</figure>
+
 
 三次握手的原則設計是防止舊復用連接的初始化導致問題，為瞭解決此問題，我們設計了reset這個特別的控制信號來處理。
 
 * 如果接收中的 TCP 在一個未同步狀態如 SYN-SENT, SYN-RECEIVED，它會返回 reset 給對方。
 * 如果 TCP 是同步狀態中如(ESTABLISHED, FIN-WAIT-1, FIN-WAIT-2, CLOSE-WAIT, CLOSING, LAST-ACK, TIME-WAIT)，他會終止此連接並通知用戶。
+
+
 
 ### [TCP 為什麼是三次握手，而不是兩次或四次](https://www.zhihu.com/question/24853633/answer/573627478)？
 
@@ -160,11 +178,15 @@ RFC793講到了為什麼三次握手是必須的，TCP 需要 seq 序列號來�
 
 若建立連接只需兩次握手，客戶端並沒有太大的變化，仍然需要獲得服務端的應答後才進入ESTABLISHED狀態，而服務端在收到連接請求後就進入ESTABLISHED狀態。此時如果網絡擁塞，客戶端發送的連接請求遲遲到不了服務端，客戶端便超時重發請求，如果服務端正確接收並確認應答，雙方便開始通信，通信結束後釋放連接。此時，如果那個失效的連接請求抵達了服務端，由於只有兩次握手，服務端收到請求就會進入ESTABLISHED狀態，等待發送數據或主動發送數據。但此時的客戶端早已進入CLOSED狀態，服務端將會一直等待下去，這樣浪費服務端連接資源。
 
-![二次握手在多次發送同步訊號時浪費資源](../.gitbook/assets/tcp\_2-way-handshake-min.jpg)
+<figure><img src="../.gitbook/assets/tcp\_2-way-handshake-min.jpg" alt="" width="500">
+<figcaption>二次握手在多次發送同步訊號時浪費資源</figcaption>
+</figure>
+
 
 我們首先要知道到一點就是， TCP 的可靠連接是靠 seq（ sequence numbers 序列號）來達成的。TCP 設計中一個基本設定就是，通過TCP 連接發送的每一個包，都有一個sequence number。而因為每個包都是有序列號的，所以都能被確認收到這些包。確認機制是累計的，所以一個對sequence number X 的確認，意味著 X 序列號之前(不包括 X) 包都是被確認接收到的。
 
-TCP 協議是不限制一個特定的連接（兩端 socket 一樣）被重復使用的。所以這樣就有一個問題：這條連接突然斷開重連後，TCP 怎麼樣識別之前舊鏈接重發的包？——這就需要獨一無二的 ISN（初始序列號）機制。
+TCP 協議是不限制一個特定的連接（兩端 socket 一樣）被重復使用的。
+所以這樣就有一個問題：這條連接突然斷開重連後，TCP 怎麼樣識別之前舊鏈接重發的包？——這就需要獨一無二的 ISN（初始序列號）機制。
 
 當一個新連接建立時，初始序列號（ initial sequence number ISN）生成器會生成一個新的32位的 ISN，且不太可能會碰撞。發送方與接收方都會有自己的 ISN （下面的例子中就是 X 與 Y）來做雙方互發通信，為了確認雙方的ISN，三次握手是必須的。
 
@@ -172,9 +194,12 @@ TCP 協議是不限制一個特定的連接（兩端 socket 一樣）被重復�
 
 接收方接收到第一個 SYN 時，沒有辦法知道這個 SYN 是是否延遲了很久了，除非他有辦法記住在這條連接中，最後接收到的那個sequence numbers（然而這不總是可行的）。這句話的意思是：一個 seq 過來了，跟現在記住的 seq 不一樣，我怎麼知道他是上條延遲的，還是上上條延遲的呢？所以，接收方一定需要跟發送方確認 SYN。
 
-![三次握手可防止歷史連接](../.gitbook/assets/tcp\_multiple\_syn-min.jpg)
+<figure><img src="../.gitbook/assets/tcp\_multiple\_syn-min.jpg" alt="" width="500">
+<figcaption>三次握手可防止歷史連接</figcaption>
+</figure>
 
-TCP離線前的4次握手( 4-way handshake)
+
+TCP離線前的4次握手( 4-way handshake)
 -
 
 * CLIENT: 傳送通訊斷線請求
@@ -193,8 +218,10 @@ TCP離線前的4次握手( 4-way handshake)
   * PS2：seq=v，v-1是B向A發送的最後一個字節的序號。
   * PS3：ack=u+1表示希望收到從第u+1個字節開始的報文段，並且已經成功接收了前u個字節。
   * A收到該應答，進入FIN-WAIT-2狀態，等待B發送連接釋放請求。第二次揮手完成後，A到B方向的連接已經釋放，B不會再接收數據，A也不會再發送數據。但B到A方向的連接仍然存在，B可以繼續向A發送數據。
-* 第三次揮手  ：當B向A發完所有數據後，向A發送連接釋放請求，請求頭：FIN=1，ACK=1，seq=w，ack=u+1。B便進入LAST-ACK狀態。
-* 第四次揮手  ：A收到釋放請求後，向B發送確認應答，此時A進入TIME-WAIT狀態。該狀態會持續2MSL時間，若該時間段內沒有B的重發請求的話，就進入CLOSED狀態，撤銷TCB。當B收到確認應答後，也便進入CLOSED狀態，撤銷TCB。
+* 第三次揮手
+  ：當B向A發完所有數據後，向A發送連接釋放請求，請求頭：FIN=1，ACK=1，seq=w，ack=u+1。B便進入LAST-ACK狀態。
+* 第四次揮手
+  ：A收到釋放請求後，向B發送確認應答，此時A進入TIME-WAIT狀態。該狀態會持續2MSL時間，若該時間段內沒有B的重發請求的話，就進入CLOSED狀態，撤銷TCB。當B收到確認應答後，也便進入CLOSED狀態，撤銷TCB。
 
 ### 為什麼A要先進入TIME-WAIT狀態，等待2MSL時間後才進入CLOSED狀態？
 
@@ -204,9 +231,10 @@ TCP離線前的4次握手( 4-way handshake)
 
 
 
+<figure><img src="../.gitbook/assets/tcp_connection_states.jpg" alt="" width="500">
+<figcaption>TCP連線狀態圖</figcaption>
+</figure>
 
-
-![TCP連線狀態圖](../.gitbook/assets/tcp\_connection\_states.jpg)
 
 ## 埠(Port)的分類
 
