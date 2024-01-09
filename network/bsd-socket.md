@@ -24,7 +24,7 @@ Socket通訊的雙方可以分為客戶端和伺服器端，客戶端的基本�
 
 伺服器端的步驟稍微多一些，主要增加了與埠繫結（bind）和監聽（listen）、接受阻塞（accept）等流程。
 
-<figure><img src="./.gitbook/assets/tcp_socket.jpg" alt="" width="500">
+<figure><img src="../.gitbook/assets/tcp_socket.jpg" alt="" width="500">
 <figcaption>TCP互動流程</figcaption>
 </figure>
 
