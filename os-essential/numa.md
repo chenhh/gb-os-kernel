@@ -1,6 +1,6 @@
 # NUMA架構
 
-NUMA(non-uniform memory access)架構
+## NUMA(non-uniform memory access)架構
 
 
 NUMA架構在多個CPU系統中才有明顯的問題。Linux中可用`lscpu`指令看numa節點的個數，2個(含)以上才有numa的架構，單CPU多核的的numa節點個數為1。
@@ -9,7 +9,7 @@ NUMA架構在多個CPU系統中才有明顯的問題。Linux中可用`lscpu`指�
 <figcaption>雙CPU電腦中，lscpu的結果</figcaption>
 </figure>
 
-為什麼要有NUMA
+## 為什麼要有NUMA
 
 
 在NUMA架構出現前，CPU朝著頻率越來越高的方向發展。受到物理極限的挑戰，又轉為核數越來越多的方向發展。
