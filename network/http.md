@@ -88,7 +88,7 @@ QUIC 連線的建立主要分為兩個步驟：(1)初始交握和(2)最終與重
 
 當下一次要重複建立連線時，客戶端會使用自己之前 cache 的服務端長期公鑰，加上自己新擇定的短期密鑰，重新產生一把與之前不同的初始密鑰，直接在初始密鑰的保護下傳送 request 給服務端，達到零交握延遲連線 (0-RTT Handshake Latency)，如上圖中。當服務端的長期公鑰失效時，服務端會重新回傳一個新的 REJ 封包，重新與客戶端進行交握，總共一樣只會花費 1 個 RTT 的時間，如上圖右。
 
-### 多路複用 (Stream Multiplexing)&#xD;
+### 多路複用 (Stream Multiplexing)
 
 當 TCP 連線傳輸的一個封包遺失時，在發送端主動發現並且重新傳送前，整個連線的傳輸都會被卡住，這就是TCP 的 Head of Line Blocking (HOL Blocking) 問題。
 
@@ -102,7 +102,7 @@ QUIC 的 Stream Multiplexing 具有以下幾點特性：
 * 每一個 Stream 要傳輸的資料都是封裝在一個或者是多個 Stream Frame 中傳輸。
 * QUIC 連線中傳輸的 QUIC 封包，可以同時攜帶多個 Stream Frames。每一個 Stream Frame 可能都分別來自不同 Stream。
 
-### 封包遺失恢復 (Loss Recovery)&#xD;
+### 封包遺失恢復 (Loss Recovery)
 
 過去TCP在封包遺失恢復策略所用的做法，是在發送端為每一個封包標記一個編號 (sequence number)，接收端在收到封包時，就會回傳一個帶有對應編號的 ACK 封包給發送端，告知發送端封包已經確實收到。當發送端在超過一定時間 (Retransmiting Timeout, RTO) 之後還沒有收到回傳的 ACK，就會認為封包已經丟失，啟動重新傳送的機制，複用與原來相同的編號重新發送一次封包，確保在接收端這邊沒有任何封包漏接。
 
