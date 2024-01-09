@@ -29,7 +29,7 @@ BIOS韌體
 
 BOOT是載入執行的一個預啟動的操作環境程式，嚴格來算是軟體，通常用組合語言編寫。是一組固化到計算機內主機板上一個ROM晶片上的程式。它儲存著計算機最重要的基本輸入輸出的程式、系統設定資訊、開機後自檢程式和系統自啟動程式。其主要功能是為計算機提供最底層的、最直接的硬體設定和控制。
 
-<figure><img src="../.gitbook/assets/bios\_setting.png" alt="" width="500">
+<figure><img src="../.gitbook/assets/bios_setting.png" alt="" width="500">
 <figcaption>Award BIOS設定畫面</figcaption>
 </figure>
 
@@ -88,7 +88,7 @@ BIOS本身是組合語言程式碼，是在16位元真實模式下呼叫INT 13H�
 5. 再次被啟動的程式碼（二階段程式碼）（即啟動引導）會查閱支援和配置檔案。
 6. 根據配置檔案中的資訊，啟動載入程式會將核心和initramfs檔案載入系統的RAM中，然後開始啟動核心。
 
-<figure><img src="../.gitbook/assets/post\_test.png" alt="" width="500">
+<figure><img src="../.gitbook/assets/post_test.png" alt="" width="500">
 <figcaption>通電自檢(POST)</figcaption>
 </figure>
 
