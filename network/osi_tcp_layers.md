@@ -148,11 +148,11 @@ TCP 實現可靠的傳輸協議，是靠 SEQ 確認完成的。因此建立一�
 起初，服務器和客戶端都為CLOSED狀態。在通信開始前，雙方都得創建各自的傳輸控制塊（TCB）。
 服務器創建完TCB後遍進入LISTEN狀態，此時准備接收客戶端發來的連接請求。
 
-## TCP建立連線的三次握手( 3-Way handshake)&#x20;
+## TCP建立連線的三次握手( 3-Way handshake)
 
 TCP 為了在通訊連線前，確認對方可以準備接收訊號，以及在斷線前，確認對方準備好離線，因此發展出了連線前的 3-way handshake 與離線前的 4-way handshake 機制。
 
-### 連線前的 3-way handshake&#xD;
+### 連線前的 3-way handshake
 
 * CLIENT: 傳送通訊連線請求
   ，發送了 SEQ 100，標志位是 SYN；
