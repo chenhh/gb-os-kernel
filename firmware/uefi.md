@@ -59,8 +59,7 @@ Secure Boot要求原生UEFI環境，即不能開啟CSM，也就是開啟Secure B
 
 ### 磁碟結構
 
-<figure><img src="../.gitbook/assets/chs-min.png" alt="" width="500">
-<figcaption>磁區(sector)，磁軌(track)，磁柱(cylinder)</figcaption>
+<figure><img src="../.gitbook/assets/chs-min.png" alt="" width="500"><figcaption>磁區(sector)，磁軌(track)，磁柱(cylinder)</figcaption>
 </figure>
 
 * 磁區：就是磁軌上的一段弧線。很多人以為一個磁區就是一個扇狀餅塊，其實不是而是磁軌的一段弧線而已。
