@@ -1,6 +1,6 @@
 # 記憶體管理(memory management)
 
-<figure><img src=".gitbook/assets/memory\_flow-min.png" alt="" width="563"><figcaption>程式由硬碟被讀入記憶體後，由OS管理記憶體被執行</figcaption></figure>
+<figure><img src="../../.gitbook/assets/memory_flow-min.png" alt="" width="563"><figcaption>程式由硬碟被讀入記憶體後，由OS管理記憶體被執行</figcaption></figure>
 
 * 程式必須要被進主記憶體中（從硬碟中），並且放入行程中運行。
 * 主記憶體以及暫存器是CPU唯二可以直接存取的儲存空間。
