@@ -23,6 +23,12 @@
   * [init行程：upstart](os-essential/init-process-sysvinit/init-process-upstart.md)
   * [init行程：systemd](os-essential/init-process-sysvinit/init-process-systemd.md)
 
+## 韌體 <a href="#firmware" id="firmware"></a>
+
+* [BIOS](firmware/bios.md)
+* [UEFI](firmware/uefi.md)
+* [EDK2](firmware/edk2.md)
+
 ## 虛擬機 <a href="#virtual_machine" id="virtual_machine"></a>
 
 * [在 Linux 啟動 UEFI Secure Boot 導致不能 VirtualBox 不能起動虛擬機](virtual\_machine/zai-linux-qi-dong-uefi-secure-boot-dao-zhi-bu-neng-virtualbox-bu-neng-qi-dong-xu-ni-ji.md)
