@@ -10,7 +10,7 @@
 
 ## TLB (Translation lookasdie buffer )加速
 
-使用 TLB (Translation lookasdie buffer) 暫存器 () or Associative register ) 保存分頁表中經常被存取之分頁編號與頁框編號，而完整的分頁表還是置於記憶體之中。
+使用 TLB (Translation lookasdie buffer) 暫存器 保存分頁表中經常被存取之分頁編號與頁框編號，而完整的分頁表還是置於記憶體之中。
 
 <figure><img src="../../.gitbook/assets/tlb-min.png" alt="" width="500">
 <figcaption>TLB示意圖</figcaption>

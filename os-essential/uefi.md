@@ -6,7 +6,9 @@ UEFI\(Unified Extensible Firmware Interface\)， 是一種詳細描述類型介�
 
 * UEFI：簡單來說就是改良版的BIOS，但UEFI不能稱為BIOS，在新的主機板看到圖形化介面，以及可以用滑鼠鍵盤操作的”BIOS”畫面，就是UEFI介面。很多人混淆的一點，沒有’UEFI BIOS’。不過為了方便說明與避免混淆，仍會習慣使用”BIOS”代稱，但請不要認為UEFI是某種BIOS。
 
-![UEFI&#x67B6;&#x69CB;](../.gitbook/assets/uefi_arch-min.png)
+<figure><img src="../.gitbook/assets/uefi_arch-min.png" alt="" width="500">
+<figcaption>UEFI&#x67B6;&#x69CB;</figcaption>
+</figure>
 
 * .Boot:開機：硬碟剛買來時，硬碟裡面完全都是空的，也就是你不安裝作業系統的話，是沒辦法開機進去操作的。那如果你有兩顆硬碟時，在BIOS裡面，就可以選擇，我要從哪顆硬碟去啟動作業系統，即是所謂的開機選項，Boot Menu。
 * 而如果想要UEFI啟動，就必須以UEFI模式安裝UEFI作業系統，但UEFI的開機選項不只有裝置順序，還有系統本身。
@@ -19,7 +21,9 @@ BIOS樣式的韌體只在IBM PC相容電腦上找的到。UEFI意味著更通用
 
 也就是說在UEFI架構下，透過CSM模擬BIOS來相容只支援BIOS開機的裝置。也稱為Legacy模式、LegacyMode、Legacy BIOS。所以如果要安裝純UEFI也就是將CSM給關閉\(Disable\)。如果你的電腦沒辦法關掉CSM，那就只能待在UEFI+CSM模式的半UEFI了。“CSM”有時會錯誤地將此功能稱為“禁用UEFI”，這在說法上是荒謬的。你無法“禁用”系統的韌體。
 
-![CSM](../.gitbook/assets/uefi_csm-min.png)
+<figure><img src="../.gitbook/assets/uefi_csm-min.png" alt="" width="500">
+<figcaption>CSM</figcaption>
+</figure>
 
 ## Secure Boot 安全啟動
 
@@ -41,7 +45,8 @@ UEFI只能裝在GPT模式的硬碟。
 
 GPT，一種新型磁盤模式，與我們常用的MBR磁盤相比更穩定，自糾錯能力更強，一塊磁盤上主分區數量不受限制，硬碟可支援到18ET，可分割128磁區\(128個C.D.E槽\)。
 
-MBR，主引導記錄，一種磁盤分區模式。硬碟支援到2TB，最多可分個4個主要磁區\(4個C.D.E槽\)。當使用2TB以上硬碟請用GPT模式，否則MBR只認2TB內容，其他皆會浪費掉。
+
+MBR，主引導記錄，一種磁盤分區模式。硬碟支援到2TB，最多可分個4個主要磁區\(4個C.D.E槽\)。當使用2TB以上硬碟請用GPT模式，否則MBR只認2TB內容，其他皆會浪費掉。
 
 * BIOS+MBR：可重啟系統，所有系統可支援，不支援大於2T的硬盤。
 * BIOS+GPT：不可重啟系統，可以做資料碟使用，不可引導系統。

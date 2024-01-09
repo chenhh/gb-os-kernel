@@ -4,7 +4,8 @@
 
 * [Linux核心簡介](README.md)
 * [Page 2](os-essential/page-2.md)
-* * [開機流程](os-essential/computer-start.md)
+* [開機流程](os-essential/computer-start.md)
+* [BIOS](os-essential/bios.md)
 * [記憶體管理(memory management)](os-essential/memory-management/README.md)
   * [分頁(paging)](os-essential/memory-management/fen-ye-paging.md)
   * [虛擬記憶體(virtual memory)](os-essential/memory-management/virtual-memory.md)

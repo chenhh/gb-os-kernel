@@ -18,9 +18,14 @@ CPU高速運算需要高速的資料存取。為解決這個問題，廠商在CP
 3. CPU執行指令，把結果寫到快取記憶體
 4. 快取記憶體中的資料寫回主記憶體
 
-![CPU&#x5FEB;&#x53D6;&#x8207;&#x4E3B;&#x8A18;&#x61B6;&#x9AD4;&#x7D93;&#x532F;&#x6D41;&#x6392;&#x9023;&#x7D50;&#x5728;&#x4E00;&#x8D77;](../.gitbook/assets/cpu_cache_bus.jpg)
+<figure><img src="../.gitbook/assets/cpu_cache_bus.jpg" alt="" width="500">
+<figcaption>CPU快取與主記憶體經匯流排連結在一起</figcaption>
+</figure>
 
-![&#x73FE;&#x4EE3;CPU&#x6709;&#x591A;&#x5C64;&#x5FEB;&#x53D6;&#x7D50;&#x69CB;](../.gitbook/assets/cpu_mutiple_cache_bus%20%281%29.jpg)
+<figure><img src="../.gitbook/assets/cpu_mutiple_cache_bus.jpg" alt="" width="500">
+<figcaption>CPU多級快取</figcaption>
+</figure>
+
 
 ## 多核CPU多級快取一致性協議MESI
 

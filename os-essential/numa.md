@@ -5,7 +5,9 @@ NUMA(non-uniform memory access)架構
 
 NUMA架構在多個CPU系統中才有明顯的問題。Linux中可用`lscpu`指令看numa節點的個數，2個(含)以上才有numa的架構，單CPU多核的的numa節點個數為1。
 
-![雙CPU電腦中，lscpu的結果](../.gitbook/assets/numa.png)
+<figure><img src="../.gitbook/assets/numa.png" alt="" width="500">
+<figcaption>雙CPU電腦中，lscpu的結果</figcaption>
+</figure>
 
 為什麼要有NUMA
 
@@ -20,7 +22,9 @@ CPU訪問自己晶片上所插的記憶體時速度快，而訪問其他CPU所�
 
 NUMA中，雖然記憶體直接attach在CPU上，但是由於記憶體被平均分配在了各個晶片上。只有當CPU訪問自身直接attach記憶體對應的實體地址時，才會有較短的響應時間（後稱Local Access）。而如果需要訪問其他CPU attach的記憶體的資料時，就需要通過inter-connect通道訪問，響應時間就相比之前變慢了（後稱Remote Access）。所以NUMA（Non-Uniform Memory Access）就此得名。
 
-![NUMA結構](../.gitbook/assets/numa\_local\_and\_remote\_access.png)
+<figure><img src="../.gitbook/assets/numa_local_and_remote_access.png" alt="" width="500">
+<figcaption>NUMA結構</figcaption>
+</figure>
 
 我們需要為NUMA做什麼?
 
