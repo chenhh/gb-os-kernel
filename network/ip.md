@@ -9,9 +9,10 @@
 
 協助通訊的兩端在資料\(Data Flow\)真正開始傳送之前建立連線\(example: TCP 3-way handshaking, ATM\)。
 
+<figure><img src="../.gitbook/assets/udp_encapsulation.png" alt="" width="500">
+<figcaption>UDP封包</figcaption>
+</figure>
 
-
-![UDP&#x5C01;&#x5305;](../.gitbook/assets/udp_encapsulation.png)
 
 ## IP address
 
@@ -24,23 +25,30 @@ IP address由兩個部分組成：
 
 ### 何謂一個網域\(Network\)?
 
-IP address具有相同高位位元\(Network Part\)的介面所成的統稱。這些介面彼此互相連接而不透過router \(Layer-3 Device\)。
+IP address具有相同高位位元\(Network Part\)的介面所成的統稱。
+這些介面彼此互相連接而不透過router \(Layer-3 Device\)。
 
 ### 網路遮罩\(Network Mask\)
 
-用來判斷IP位址中的Network Part以及Host Part。例： 223.1.1.4/24，代表左邊24個位元是Network part，剩下的8位元是host part。
+用來判斷IP位址中的Network Part以及Host Part。
+例： 223.1.1.4/24，代表左邊24個位元是Network part，剩下的8位元是host part。
 
 IP網路位址可以依照前面若干個位元來區分是屬於哪個class \(A, B, C, D\)。
 
 利用網路遮罩\(Network Mask\)可以將取得的一段IP再度分割成更小段的子網路\(sub-network\)。
 
-![IPv4 class](../.gitbook/assets/ip_class-min.png)
+<figure><img src="../.gitbook/assets/ip_class-min.png" alt="" width="500">
+<figcaption>IPv4 class</figcaption>
+</figure>
 
 ### CIDR: \(Classless Inter Domain Routing\)
 
 如果完全依照class來分配IP位址，可能無法有效的利用IP位址\(空著很多IP並未使用\)。IP位址的Network part長度並未固定，可以依照Network Mask來決定Network part的長度。
 
-![CIDR&#x7BC4;&#x4F8B;](../.gitbook/assets/cidr-min.png)
+<figure><img src="../.gitbook/assets/cidr-min.png" alt="" width="500">
+<figcaption>CIDR範例</figcaption>
+</figure>
+
 
 ## IP封包切割與重組
 
@@ -51,11 +59,9 @@ IP封包的切割：
 * 在傳送過程中將一個封包切割\(fragmentation\)為若干個小封包。
 * 在接收端接收到以後利用Header中的identifier重新組合\(reassembly\)。
 
-
-
-![IP&#x5C01;&#x5305;&#x53C3;&#x8003;MTU&#x5207;&#x5272;&#x5F8C;&#xFF0C;&#x4EE5;ID&#x91CD;&#x7D44;](../.gitbook/assets/ip_fragement-min.png)
-
-
+<figure><img src="../.gitbook/assets/ip_fragement-min.png" alt="" width="500">
+<figcaption>IP封包參考MTU切割後，以ID重組</figcaption>
+</figure>
 
 
 
@@ -69,7 +75,10 @@ IPv4位址可被寫作任何表示一個32位元整數值的形式，但為了�
 
 [Linux kernel 表頭檔](https://github.com/torvalds/linux/blob/master/include/uapi/linux/ip.h)：
 
-![IPv4&#x5C01;&#x5305;&#x8868;&#x982D;&#xFF0C;&#x901A;&#x5E38;&#x70BA;20 bytes](../.gitbook/assets/ipv4_packet-min.png)
+<figure><img src="../.gitbook/assets/ipv4_packet-min.png" alt="" width="500">
+<figcaption>IPv4封包表頭，通常為20 bytes</figcaption>
+</figure>
+
 
 ```c
 struct iphdr {
@@ -105,17 +114,30 @@ struct iphdr {
   * 當路由器擁塞的程度已經達到填滿傳入封包緩衝區而開始捨棄封包時，會影響網路而縮減頻寬，對資料損失敏感或具時效性的傳輸量流動會進而受到衝擊，而且可能在擁塞之後產生連結閒置時間。TCP/IP 明確擁塞通知 \(ECN\) 讓路由器能夠通知「傳輸控制通訊協定」\(TCP\) 對等體，由於網路擁塞，緩衝區已滿。TCP 對等體會以減緩資料傳輸來回應，協助防止封包損失。
   * IP 表頭中的 8 位元 \[Type of Service \(TOS\)\] 欄位最先定義於 RFC 791 中，指出封包由路由器進行非預設傳送的傳送優先順序、延遲、輸送量、可靠性，以及成本等特性。
 * Total length, 16-bit, 整個封包的大小 \(in bytes\), 包含表頭與資料, 20 bytes \(only header\)&lt;=total length &lt;=65535 bytes \(2\*\*16\)
-  * packet size太大時，在底層會被切成較小的frame。    MTU 最大不會超過 65535 bytes。
-  * 但是一般說來，過大的 IP datagram 由於傳送上的困難或是其他協定的限制，會被切割為好幾個小部分。    透過 total length 與 length 欄位的搭配，就可以計算出在 IP datagram 中資料的實際大小    。
-* Identification, 16-bits:  此欄位是用來識別傳送端所發出的 IP datagram 之用，每個 IP datagram 都會有一個 unique 的 identification 值，一般來講就是以遞增值的方式來作為識別之用  。
-* Flags: 3-bits & fragment offset: 13-bits  ，此兩欄位是作為進行 fragmentation 時之用  。
-* time to live, TTL: 8-bits  ，這個欄位中所儲存的值，代表送出的 IP datagram 可以通過 router 數量的上限，此值由傳送端設定，每經過一個 router 會減少 1，當值減為 0 後，則會被丟棄不再繼續傳送，然後傳送端會收到 ICMP 訊息作為通知，避免傳送端一直送出無法達到目的地的封包。
-* Protocol, 8-bits,    目的是在記錄使用 IP 傳送資料的是上層的哪一個協定  。
-* header checksum, 16-bits  ，作為檢查 IP header 之用，跟其他協定\(例如：TCP、UDP、ICMP....etc\)的 header 無關，因為其他協定的 header 有自己的 checksum 欄位。
-  * 另外，由於 checksum 是依據 IP header 中各欄位所計算出來的，因此在 IP datagram 經過 router 而 TTL 減 1 後，router 會重新計算 checksum 的值並繼續傳遞 IP datagram    。
+  * packet size太大時，在底層會被切成較小的frame。
+    MTU 最大不會超過 65535 bytes。
+  * 但是一般說來，過大的 IP datagram 由於傳送上的困難或是其他協定的限制，會被切割為好幾個小部分。
+    透過 total length 與 length 欄位的搭配，就可以計算出在 IP datagram 中資料的實際大小
+    。
+* Identification, 16-bits:
+  此欄位是用來識別傳送端所發出的 IP datagram 之用，每個 IP datagram 都會有一個 unique 的 identification 值，一般來講就是以遞增值的方式來作為識別之用
+  。
+* Flags: 3-bits & fragment offset: 13-bits
+  ，此兩欄位是作為進行 fragmentation 時之用
+  。
+* time to live, TTL: 8-bits
+  ，這個欄位中所儲存的值，代表送出的 IP datagram 可以通過 router 數量的上限，此值由傳送端設定，每經過一個 router 會減少 1，當值減為 0 後，則會被丟棄不再繼續傳送，然後傳送端會收到 ICMP 訊息作為通知，避免傳送端一直送出無法達到目的地的封包。
+* Protocol, 8-bits, 
+   目的是在記錄使用 IP 傳送資料的是上層的哪一個協定
+  。
+* header checksum, 16-bits
+  ，作為檢查 IP header 之用，跟其他協定\(例如：TCP、UDP、ICMP....etc\)的 header 無關，因為其他協定的 header 有自己的 checksum 欄位。
+  * 另外，由於 checksum 是依據 IP header 中各欄位所計算出來的，因此在 IP datagram 經過 router 而 TTL 減 1 後，router 會重新計算 checksum 的值並繼續傳遞 IP datagram
+    。
 * source IP address \(32 bits\)
 * destination IP address \(32 bits\)
-* options \(不定長度\)  ：最後這個欄位就比較少用到了，長度不固定，但以 4 bytes\(32 bits\) 為單位，而有可能被用在以下幾個地方：
+* options \(不定長度\)
+  ：最後這個欄位就比較少用到了，長度不固定，但以 4 bytes\(32 bits\) 為單位，而有可能被用在以下幾個地方：
   * 加強安全性
   * 記錄 route 資訊的
   * 記錄時間戳記
@@ -140,8 +162,10 @@ struct iphdr {
 範例：
 
 * 3ffe:0102:0000:0000:0000:0000:0000:0000/32
-* 消去每四個位數集合前面的零   3ffe:102:0:0:0:0:0:0/32
-* R用雙冒號取代連續的零集合   3ffe:102::/32
+* 消去每四個位數集合前面的零
+   3ffe:102:0:0:0:0:0:0/32
+* R用雙冒號取代連續的零集合
+   3ffe:102::/32
 
 ### 如何在IPv4與IPv6共存下連線
 
