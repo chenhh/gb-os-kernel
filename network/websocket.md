@@ -8,7 +8,7 @@ HTTP有1.1和1.0之說，差別在於keep-alive，即把多個HTTP請求合並�
 
 HTTP協議採用“請求-應答”模式，當使用普通模式，即非KeepAlive模式時，每個請求/應答客戶和服務器都要新建一個連接，完成之後立即斷開連接，因為HTTP協議為無連接的協議；當使用Keep-Alive模式（HTTP 1.1，又稱持久連接、連接重用）時，Keep-Alive功能使客戶端到服務器端的連接持續有效，當出現對服務器的後繼請求時，Keep-Alive功能避免了建立或者重新建立連接。目前大部分瀏覽器都是用HTTP 1.1協議，也就是說預設都會發起Keep-Alive的連接請求了，所以是否能完成一個完整的Keep- Alive連接就看服務器設置情況。
 
-<figure><img src="./.gitbook/assets/http_persistent_connection-min.png" alt="" width="500">
+<figure><img src="../.gitbook/assets/http_persistent_connection-min.png" alt="" width="500">
 <figcaption>http1.0與keep-alive</figcaption>
 </figure>
 
