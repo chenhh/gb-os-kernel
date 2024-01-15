@@ -45,4 +45,6 @@
 
 ## 逆向工程 <a href="#reverse-engineering" id="reverse-engineering"></a>
 
-* [Page 1](reverse-engineering/page-1.md)
+* [靜態/動靜分析](reverse-engineering/static-dynamic-analysis.md)
+* [加殼與脫殼](reverse-engineering/shelling.md)
+* [Ghildra](reverse-engineering/ghildra.md)
