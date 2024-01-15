@@ -6,22 +6,20 @@
 
 * 記憶體是存儲資料的地方，給出一個位址信號，記憶體可以返回該位址所對應的資料。
 * CPU 的工作方式就是不斷從記憶體中取出指令並且執行。
-* CPU 從記憶體的哪個位址取出指令，是由一個暫存器中的值決定的，這個值會不斷進行 +1 操作\(下一個指令或位元\)，或者由某條跳轉指令指定其值是多少。
+* CPU 從記憶體的哪個位址取出指令，是由一個暫存器中的值決定的，這個值會不斷進行 +1 操作(下一個指令或位元)，或者由某條跳轉指令指定其值是多少。
 
 ## 我們按下開機鍵後究竟發生了什麼？
 
-開機後有四次關鍵跳躍\(jmp\)指令，都是當時 Intel 和 BIOS 等製作廠商的固定下來的流程，記住就好。開機的時候CPU處於真實模式，可定址範圍為1M：
+開機後有四次關鍵跳躍(jmp)指令，都是當時 Intel 和 BIOS 等製作廠商的固定下來的流程，記住就好。開機的時候CPU處於真實模式，可定址範圍為1M：
 
-1. 按下開機鍵，CPU 將 PC 暫存器的值強制初始化為 0xFFFF0，這個位置是 BIOS 程式的入口位址（第一次跳躍）
-   。
-2. 該入口位址處是一個跳轉指令，跳轉到 0xFE05B 位置，開始執行（第二次跳躍）
-   。
+1. 按下開機鍵，CPU 將 PC 暫存器的值強制初始化為 0xFFFF0，這個位置是 BIOS 程式的入口位址（第一次跳躍） 。
+2. 該入口位址處是一個跳轉指令，跳轉到 0xFE05B 位置，開始執行（第二次跳躍） 。
 3. 執行了一些硬體檢測工作後，最後一步將啟動區內容加載（復制）到記憶體 0x7C00，並跳轉到這裡（第三次跳躍）。
 4. 啟動區代碼主要是加載作業系統內核，並跳轉到加載處（第四次跳躍）。
 
 經過這連續的四次跳躍，終於來到了作業系統的世界了，剩下的內容，可以說是整個作業系統課程所講述的原理，分段、分頁、建立中斷、裝置驅動、記憶體管理、程式管理、檔案系統、使用者態介面等等。
 
-## 記憶體對映\(memory mapping\)
+## 記憶體對映(memory mapping)
 
 CPU 位址匯流排的寬度決定了可訪問的記憶體空間的大小。
 
@@ -34,18 +32,15 @@ CPU 位址匯流排的寬度決定了可訪問的記憶體空間的大小。
 
 真實模式時，記憶體的配置如下圖：
 
-<figure><img src="../.gitbook/assets/real_mode_memory_allocation-min.png" alt="" width="500">
-<figcaption>真實模式記憶體配置</figcaption>
-</figure>
+<figure><img src="../.gitbook/assets/real_mode_memory_allocation-min.png" alt="" width="500"><figcaption><p>真實模式記憶體配置</p></figcaption></figure>
 
 記憶體被各種外部設備對映在了記憶體中。BIOS不但其空間被對映到了記憶體 0xC0000 - 0xFFFFF 位置，其裡面的程式還佔用了開頭的一些區域，比如把中斷向量表寫在了記憶體開始的位置。
 
 ## BIOS 第一個被執行的部份
 
-目前已經知道 BIOS 裡的資訊被對映到了記憶體 0xC0000 - 0xFFFFF 位置，其中最為關鍵的系統 BIOS 被對映到了 0xF0000 - 0xFFFFF \(16 Bytes\) 位置。
+目前已經知道 BIOS 裡的資訊被對映到了記憶體 0xC0000 - 0xFFFFF 位置，其中最為關鍵的系統 BIOS 被對映到了 0xF0000 - 0xFFFFF (16 Bytes) 位置。
 
-按下開機鍵，CPU 將 PC 暫存器的值強制初始化為 0xFFFF0，這個位址
-。更詳細的說，CPU 將段基址暫存器 CS 初始化為 0xF000，將偏移位址暫存器 IP 初始化為 0xFFF0，根據真實模式下的最終位址計算規則，將段基址左移 4 位，加上偏移位址，得到最終的實體位址也就是抽象出來的 PC 暫存器位址為 0xFFFF0。
+按下開機鍵，CPU 將 PC 暫存器的值強制初始化為 0xFFFF0，這個位址 。更詳細的說，CPU 將段基址暫存器 CS 初始化為 0xF000，將偏移位址暫存器 IP 初始化為 0xFFF0，根據真實模式下的最終位址計算規則，將段基址左移 4 位，加上偏移位址，得到最終的實體位址也就是抽象出來的 PC 暫存器位址為 0xFFFF0。
 
 0xF0000 - 0xFFFFF 只有16位元組，其中儲存的機器指令轉成組合語言是：
 
@@ -63,15 +58,13 @@ BIOS 裡面有一段寫死的程式碼，會幫我們把啟動區的第一扇區
 
 BIOS 啟動順序的經歷，通常有 USB硬碟啟動、硬碟啟動、軟硬啟動、光碟啟動等等BIOS。 會按照順序，讀取這些啟動盤中位於 0 盤 0 道 1 扇區的內容。
 
- 這 0 盤 0 道 1 扇區的內容一共有 512 個位元組，如果末尾的兩個位元組分別是 0x55 和 0xAA，那麼 BIOS 就會認為它是個啟動區，即所謂的MBR\(master boot record\)。
+這 0 盤 0 道 1 扇區的內容一共有 512 個位元組，如果末尾的兩個位元組分別是 0x55 和 0xAA，那麼 BIOS 就會認為它是個啟動區，即所謂的MBR(master boot record)。
 
-<figure><img src="../.gitbook/assets/mbr-min.png" alt="" width="500">
-<figcaption>MBR結構</figcaption>
-</figure>
+<figure><img src="../.gitbook/assets/mbr-min.png" alt="" width="500"><figcaption><p>MBR結構</p></figcaption></figure>
 
 BIOS 找到了這個啟動區之後，把這 512 個位元組的內容，全部複製到記憶體的 0x7C00位址 。啟動區的內容就是我們自己寫的程式碼了。
 
-複製完成\(512B\)之後，接下來應該是一個跳轉指令。沒錯，正是這樣，PC 暫存器的值變為 0x7c00，指令開始從這裡執行。之後我們的程式就接管了接下來的流程，BIOS 的使命也就結束。
+複製完成(512B)之後，接下來應該是一個跳轉指令。沒錯，正是這樣，PC 暫存器的值變為 0x7c00，指令開始從這裡執行。之後我們的程式就接管了接下來的流程，BIOS 的使命也就結束。
 
 ## 為何啟動程式碼是在0x7C00 位址?
 
@@ -79,7 +72,7 @@ BIOS 找到了這個啟動區之後，把這 512 個位元組的內容，全部�
 
 正因為所有寫作業系統的，啟動區的第一行組語程式碼都寫死了這個數字，那 BIOS 開發者最初定的這個數字就不好改。
 
-另一個解釋是第一個 BIOS 開發團隊是 IBM PC 5150 BIOS，當時被認為的第一個作業系統是 DOS 1.0 作業系統，BIOS 團隊就假設是為它服務的。但作業系統還沒出，BIOS 團隊假設其作業系統需要的最小記憶體為 32 KB。BIOS 希望自己所載入的啟動區程式碼盡量靠後，這樣比較“安全”，不至於過早的被其他程式覆蓋掉。可是如果僅僅留 512 位元組又感覺太懸了，還有一些堆疊空間需要預留，那擴大到 1 KB 吧。這樣 32 KB 的末尾是 0x8000，減去 1KB\(0x400\) ，剛好等於 0x7C00。
+另一個解釋是第一個 BIOS 開發團隊是 IBM PC 5150 BIOS，當時被認為的第一個作業系統是 DOS 1.0 作業系統，BIOS 團隊就假設是為它服務的。但作業系統還沒出，BIOS 團隊假設其作業系統需要的最小記憶體為 32 KB。BIOS 希望自己所載入的啟動區程式碼盡量靠後，這樣比較“安全”，不至於過早的被其他程式覆蓋掉。可是如果僅僅留 512 位元組又感覺太懸了，還有一些堆疊空間需要預留，那擴大到 1 KB 吧。這樣 32 KB 的末尾是 0x8000，減去 1KB(0x400) ，剛好等於 0x7C00。
 
 ## QEMU實作啟動區程式
 
@@ -91,10 +84,7 @@ BIOS 找到了這個啟動區之後，把這 512 個位元組的內容，全部�
 
 編輯檔案[mbr.raw](https://github.com/chenhh/cpp-system-dev/blob/master/operating-system/mbr.raw)如下：
 
-<figure><img src="gitbook/assets/mbr_raw-min.png" alt="" width="500">
-<figcaption>mbr.raw的內容</figcaption>
-</figure>
-
+<figure><img src="https://github.com/chenhh/gb-linux-kernel-notebook/blob/main/os-essential/gitbook/assets/mbr_raw-min.png" alt="" width="500"><figcaption><p>mbr.raw的內容</p></figcaption></figure>
 
 ```bash
 qemu-system-i386 mbr.raw
@@ -104,12 +94,9 @@ qemu-system-x86_64 mbr.raw
 
 可得結果只有秀出hello。
 
+<figure><img src="../.gitbook/assets/qemu_mbr_hello-min.png" alt="" width="500"><figcaption><p>QEMU執行mbr.raw的結果</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/qemu_mbr_hello-min.png" alt="" width="500">
-<figcaption>QEMU執行mbr.raw的結果</figcaption>
-</figure>
-
-使用`ndisasm -o0x7c00 mbr.raw` 反組譯\(預設為x86 16-bit\)，且重定位至0x7c00。
+使用`ndisasm -o0x7c00 mbr.raw` 反組譯(預設為x86 16-bit)，且重定位至0x7c00。
 
 ```erlang
 chenhh@eva00 tmp $ndisasm -o0x7c00 mbr.raw
@@ -191,12 +178,9 @@ Intel 8086 是1978 年所設計的 16 位微處理器晶片，為 x86 架構的�
 
 ### 真實模式與保護模式的區別
 
-* 真實模式 16 位元，保護模式 32 位
-  元。
-* 真實模式下的位址是段暫存器位址偏移4位+偏移位址得到實體位址。保護模式下段暫存器存入了段選擇子，在段描述符表中尋找段基址，再加上偏移位址得到實體位址（開啟分頁下為邏輯位址）
-  。
-* 就是真實模式定址空間是 1M，保護模式是 4G
-  。
+* 真實模式 16 位元，保護模式 32 位 元。
+* 真實模式下的位址是段暫存器位址偏移4位+偏移位址得到實體位址。保護模式下段暫存器存入了段選擇子，在段描述符表中尋找段基址，再加上偏移位址得到實體位址（開啟分頁下為邏輯位址） 。
+* 就是真實模式定址空間是 1M，保護模式是 4G 。
 * 段描述符表記錄了段的許可權，改變了真實模式下可以隨意存取所有記憶體的問題（這也是保護這兩個字的體現）。
 
 ### 進入保護模式
@@ -204,11 +188,10 @@ Intel 8086 是1978 年所設計的 16 位微處理器晶片，為 x86 架構的�
 進入保護模式有三步：
 
 * 開啟 A20
-* 載入GDT \(Global Descriptor Table\)
+* 載入GDT (Global Descriptor Table)
 * 將 CR0 的 PE位置設為 1
 
-此時已經進入保護模式了，段基址暫存器的意義已經改變
-。
+此時已經進入保護模式了，段基址暫存器的意義已經改變 。
 
 {% code title="" %}
 ```c
@@ -279,31 +262,16 @@ jmp $
 
 ### 全域性段描述符表（GDT）
 
-### 段描述符\(segment descriptor\)
+### 段描述符(segment descriptor)
 
 真實模式中，CS:IP中的值，只要將將CS段左移 4 位，加上IP位址，就可得到最終的實體位址。
 
-在保護模式下，段基址暫存器中存的資料，被理解為段選擇子\(segment selector\)，根據這個值去我們自己在記憶體中寫好的段描述符表中找，找到對應的段描述符，從中取出段基址。用這個段基址加上偏移位址，最終得到實體位址。
+在保護模式下，段基址暫存器中存的資料，被理解為段選擇子(segment selector)，根據這個值去我們自己在記憶體中寫好的段描述符表中找，找到對應的段描述符，從中取出段基址。用這個段基址加上偏移位址，最終得到實體位址。
 
 那自然就有兩個問題，一個是段描述符表的結構，決定了我們往記憶體中寫的資料結構是什麼。另一個就是去哪找段描述符表，這個就需要告訴處理器為我們提前預留好的暫存器，也就是 lgdt 指令。
 
-<figure><img src="../.gitbook/assets/segment_descriptor.gif" alt="" width="500">
-<figcaption>段描述子結構</figcaption>
-</figure>
+<figure><img src="../.gitbook/assets/segment_descriptor.gif" alt="" width="500"><figcaption><p>段描述子結構</p></figcaption></figure>
 
+<figure><img src="../.gitbook/assets/segment_selector.gif" alt="" width="500"><figcaption><p>段選擇子結構</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/segment_selector.gif" alt="" width="500">
-<figcaption>段選擇子結構</figcaption>
-</figure>
-
-
-### 段描述表\(segment description table\)
-
-
-
-
-
-
-
-
-
+### 段描述表(segment description table)
